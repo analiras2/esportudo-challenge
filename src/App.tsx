@@ -6,15 +6,16 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LeagueScreen from './screens/leagues';
+import {RootStackParamList, Routes} from './@types/routes';
 
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={LeagueScreen} />
-      </Stack.Navigator>
+      <RootStack.Navigator screenOptions={{headerShown: false}}>
+        <RootStack.Screen name={Routes.Leagues} component={LeagueScreen} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
