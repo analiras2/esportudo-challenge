@@ -4,13 +4,15 @@ import AppBar from '../appBar';
 import {StatusBar} from 'react-native';
 
 interface Props {
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
+  title: string;
   onBackPress?: () => void;
   onRightPress?: () => void;
 }
 
 const BaseContainer: React.FC<Props> = ({
   children,
+  title,
   onBackPress,
   onRightPress,
 }): JSX.Element => {
@@ -19,7 +21,7 @@ const BaseContainer: React.FC<Props> = ({
       <StatusBar barStyle="light-content" />
       <St.Container>
         <AppBar
-          title="Title"
+          title={title}
           onBackPress={onBackPress}
           onRightPress={onRightPress}
         />
