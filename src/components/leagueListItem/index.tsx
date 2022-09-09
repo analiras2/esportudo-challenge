@@ -15,7 +15,7 @@ interface Props {
 
 const LeagueListItem: React.FC<Props> = ({data, onPress}): JSX.Element => (
   <St.Container onPress={onPress}>
-    <St.Logo source={{uri: data.logo}} />
+    <St.Logo source={{uri: data.logo}} resizeMode="contain" />
     <Typography>{data.name}</Typography>
   </St.Container>
 );

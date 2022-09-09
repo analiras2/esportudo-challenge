@@ -8,6 +8,7 @@ interface Props {
   title: string;
   onBackPress?: () => void;
   onRightPress?: () => void;
+  paddingVertical?: boolean;
 }
 
 const BaseContainer: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const BaseContainer: React.FC<Props> = ({
   title,
   onBackPress,
   onRightPress,
+  paddingVertical = true,
 }): JSX.Element => {
   return (
     <>
@@ -25,7 +27,7 @@ const BaseContainer: React.FC<Props> = ({
           onBackPress={onBackPress}
           onRightPress={onRightPress}
         />
-        <St.Body>{children}</St.Body>
+        <St.Body paddingVertical={paddingVertical}>{children}</St.Body>
       </St.Container>
     </>
   );
