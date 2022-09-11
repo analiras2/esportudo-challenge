@@ -2,7 +2,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export enum Routes {
   Leagues = 'Leagues',
-  LeagueDetails = 'LeaguesDetails',
+  Standings = 'Standings',
   Teams = 'Teams',
   Players = 'Players',
   Trophies = 'Trophies',
@@ -10,7 +10,7 @@ export enum Routes {
 
 export type RootStackParamList = {
   Leagues: undefined;
-  LeagueDetails: undefined;
+  Standings: undefined;
   Teams: undefined;
   Players: undefined;
   Trophies: undefined;

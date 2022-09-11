@@ -1,7 +1,7 @@
 import React from 'react';
 import * as St from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Typography, {FontType} from '../typography';
+import Typography from '../typography';
 import colors from '../../res/colors';
 
 interface Props {
@@ -33,7 +33,7 @@ const AppBar: React.FC<Props> = ({
         {children ? (
           {children}
         ) : (
-          <Typography color={colors.TEXT_LIGHT} type={FontType.SCREEN_TITLE}>
+          <Typography color={colors.TEXT_LIGHT} size={24} fontWeight="400">
             {title}
           </Typography>
         )}

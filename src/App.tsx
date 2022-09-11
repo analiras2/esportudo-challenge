@@ -5,7 +5,8 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LeagueScreen from './screens/leagues';
+import LeagueScreen from './screens/league';
+import StandingsScreen from './screens/standings';
 import {RootStackParamList, Routes} from './@types/routes';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -15,6 +16,7 @@ function App() {
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{headerShown: false}}>
         <RootStack.Screen name={Routes.Leagues} component={LeagueScreen} />
+        <RootStack.Screen name={Routes.Standings} component={StandingsScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
