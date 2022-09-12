@@ -1,8 +1,7 @@
 import React from 'react';
-import * as St from './styles';
+import {Modal, StatusBar} from 'react-native';
 import AppBar from '../appBar';
-import {Modal, StatusBar, View} from 'react-native';
-import {colors} from '../../res';
+import * as St from './styles';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -44,6 +43,7 @@ const BaseContainer: React.FC<Props> = ({
               setModalVisible && setModalVisible(!modalVisible);
             }}>
             <St.ModalContainer
+              activeOpacity={1}
               onPress={() => setModalVisible && setModalVisible(!modalVisible)}>
               {modalChildren}
             </St.ModalContainer>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList} from 'react-native';
 import {PlayersResponse} from '../../@types/player';
 import {RootStackScreenProps, Routes} from '../../@types/routes';
@@ -6,6 +6,7 @@ import {
   BaseContainer,
   Loading,
   PlayerListItem,
+  PlayerModalChildren,
   Typography,
 } from '../../components';
 import {strings} from '../../res';
@@ -19,8 +20,22 @@ const PlayersScreen = ({navigation}: RootStackScreenProps<Routes.Players>) => {
     mockType: MOCK_TYPE.PLAYERS,
   });
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <BaseContainer title="Trocar" onBackPress={navigation.goBack}>
+    <BaseContainer
+      title="Trocar"
+      onBackPress={navigation.goBack}
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+      modalChildren={
+        <PlayerModalChildren
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            // navigation.navigate(Routes.Trophies);
+          }}
+        />
+      }>
       <Typography fontWeight="500" size={20}>
         {strings.player.title}
       </Typography>
@@ -32,7 +47,10 @@ const PlayersScreen = ({navigation}: RootStackScreenProps<Routes.Players>) => {
             numColumns={2}
             keyExtractor={item => item.id.toString()}
             renderItem={({item}) => (
-              <PlayerListItem data={item} onPress={() => {}} />
+              <PlayerListItem
+                data={item}
+                onPress={() => setModalVisible(true)}
+              />
             )}
           />
         )}

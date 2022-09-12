@@ -10,7 +10,7 @@ interface Props {
 
 const TwoLinesInfo: React.FC<Props> = ({title, data}): JSX.Element => (
   <St.InfoData>
-    <Typography size={10} style={{marginBottom: moderateScale(8)}}>
+    <Typography size={10} style={{marginBottom: moderateScale(4)}}>
       {title}
     </Typography>
     <Typography size={16}>{data}</Typography>

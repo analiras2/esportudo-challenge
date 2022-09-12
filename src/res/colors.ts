@@ -9,4 +9,5 @@ export default {
   DIVIDER: '#D9D9D9',
   MODAL_BG: 'rgba(0, 0, 0, 0.5)',
   LINK: '#5B0D99',
+  PLAYER_TROPHY: '#AE9822',
 };
