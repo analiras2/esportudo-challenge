@@ -7,4 +7,7 @@ export default {
     played: 'Partidas',
     points: 'Pontos',
   },
+  player: {
+    title: 'Players',
+  },
 };

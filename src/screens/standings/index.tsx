@@ -4,11 +4,11 @@ import {RootStackScreenProps, Routes} from '../../@types/routes';
 import {StandingsResponse} from '../../@types/standings';
 import {
   BaseContainer,
-  StandingsListItem,
   Loading,
+  StandingsListItem,
   Typography,
 } from '../../components';
-import {moderateScale, scale} from '../../res';
+import {moderateScale} from '../../res';
 import {MOCK_TYPE, useAxios} from '../../services/useAxios';
 import * as St from './styles';
 
@@ -21,8 +21,6 @@ const StandingsScreen = ({
     params: {type: 'league'},
     mockType: MOCK_TYPE.STANDINGS,
   });
-
-  console.log('response', response && response[0]);
 
   return (
     <BaseContainer
@@ -38,25 +36,23 @@ const StandingsScreen = ({
               </Typography>
 
               <St.DataContainer>
-                <Typography fontWeight="500" size={scale(12)}>
+                <Typography fontWeight="500" size={12}>
                   10/12/2010
                 </Typography>
-                <Typography fontWeight="500" size={scale(12)}>
+                <Typography fontWeight="500" size={12}>
                   10/12/2011
                 </Typography>
               </St.DataContainer>
-              <St.Flag
-                alignItems="flex-end"
-                source={{uri: response[0].league.flag}}
-                resizeMode="contain"
-              />
+              <St.Flag uri={response[0].league.flag} />
             </St.SeasonsInfo>
             <FlatList
               data={response[0].league.standings[0]}
-              numColumns={3}
               keyExtractor={item => item.team.id.toString()}
               renderItem={({item}) => (
-                <StandingsListItem data={item} onPress={() => {}} />
+                <StandingsListItem
+                  data={item}
+                  onPress={() => navigation.navigate(Routes.Players)}
+                />
               )}
             />
           </>

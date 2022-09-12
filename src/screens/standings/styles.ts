@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {moderateScale} from '../../res';
+import {SvgUri} from 'react-native-svg';
 
 export const SeasonsInfo = styled.View`
   flex-direction: row;
@@ -13,10 +14,10 @@ export const DataContainer = styled.View`
   align-items: center;
 `;
 
-export const Flag = styled.Image`
-  height: ${moderateScale(32)}px;
-  width: ${moderateScale(79)}px;
+export const Flag = styled(SvgUri).attrs({
+  height: moderateScale(30),
+  width: moderateScale(79),
+})`
   margin-bottom: ${moderateScale(8)}px;
-  background-color: red;
   border-radius: ${moderateScale(8)}px;
 `;

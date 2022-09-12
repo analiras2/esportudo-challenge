@@ -34,8 +34,3 @@ export const InfoRow = styled.View`
   justify-content: space-between;
   padding: ${moderateScale(16)}px;
 `;
-
-export const InfoData = styled.View`
-  justify-content: center;
-  align-items: center;
-`;
