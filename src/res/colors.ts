@@ -7,4 +7,6 @@ export default {
   BACKGROUND: '#fff',
   CARD_BG: '#F2F2F2',
   DIVIDER: '#D9D9D9',
+  MODAL_BG: 'rgba(0, 0, 0, 0.5)',
+  LINK: '#5B0D99',
 };

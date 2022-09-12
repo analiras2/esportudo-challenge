@@ -11,6 +11,13 @@ export const Container = styled.SafeAreaView`
   background-color: ${colors.PRIMARY};
 `;
 
+export const ModalContainer = styled.TouchableOpacity`
+  flex: 1;
+  background-color: ${colors.MODAL_BG};
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Body = styled.SafeAreaView<Props>`
   flex: 1;
   padding-vertical: ${props =>

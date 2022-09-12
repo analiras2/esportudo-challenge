@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList} from 'react-native';
 import {RootStackScreenProps, Routes} from '../../@types/routes';
 import {StandingsResponse} from '../../@types/standings';
@@ -6,6 +6,7 @@ import {
   BaseContainer,
   Loading,
   StandingsListItem,
+  TeamModalChildren,
   Typography,
 } from '../../components';
 import {moderateScale} from '../../res';
@@ -22,11 +23,23 @@ const StandingsScreen = ({
     mockType: MOCK_TYPE.STANDINGS,
   });
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <BaseContainer
       title="Standings"
       onBackPress={navigation.goBack}
-      paddingVertical={false}>
+      paddingVertical={false}
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+      modalChildren={
+        <TeamModalChildren
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            navigation.navigate(Routes.Players);
+          }}
+        />
+      }>
       <Loading isLoading={loading}>
         {response && (
           <>
@@ -51,7 +64,7 @@ const StandingsScreen = ({
               renderItem={({item}) => (
                 <StandingsListItem
                   data={item}
-                  onPress={() => navigation.navigate(Routes.Players)}
+                  onPress={() => setModalVisible(true)}
                 />
               )}
             />

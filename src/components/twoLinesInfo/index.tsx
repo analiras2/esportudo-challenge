@@ -1,11 +1,11 @@
 import React from 'react';
-import {moderateScale, scale} from '../../res';
+import {moderateScale} from '../../res';
 import Typography from '../typography';
 import * as St from './styles';
 
 interface Props {
   title: string;
-  data: number;
+  data: number | string;
 }
 
 const TwoLinesInfo: React.FC<Props> = ({title, data}): JSX.Element => (
