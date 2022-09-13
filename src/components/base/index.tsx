@@ -19,7 +19,7 @@ const BaseContainer: React.FC<Props> = ({
   title,
   onBackPress,
   onRightPress,
-  paddingVertical = true,
+  paddingVertical = false,
   modalVisible,
   setModalVisible,
   modalChildren,

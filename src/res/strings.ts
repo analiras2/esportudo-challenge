@@ -10,4 +10,7 @@ export default {
   player: {
     title: 'Players',
   },
+  trophy: {
+    title: 'Trophies',
+  },
 };

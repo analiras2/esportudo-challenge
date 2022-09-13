@@ -1,6 +1,7 @@
 import React from 'react';
 import {Standings} from '../../@types/standings';
 import {strings} from '../../res';
+import Loading from '../loading';
 import TwoLinesInfo from '../twoLinesInfo';
 import Typography from '../typography';
 import * as St from './styles';
@@ -8,10 +9,17 @@ import * as St from './styles';
 interface Props {
   data: Standings;
   onPress: () => void;
+  isLoading?: boolean;
+  allDisabled?: boolean;
 }
 
-const StandingsListItem: React.FC<Props> = ({data, onPress}): JSX.Element => (
-  <St.Container onPress={onPress}>
+const StandingsListItem: React.FC<Props> = ({
+  data,
+  onPress,
+  isLoading,
+  allDisabled,
+}): JSX.Element => (
+  <St.Container onPress={onPress} disabled={allDisabled}>
     <St.Header>
       <Typography size={20} fontWeight="400">
         {`#${data.rank}`}
@@ -31,6 +39,11 @@ const StandingsListItem: React.FC<Props> = ({data, onPress}): JSX.Element => (
       <TwoLinesInfo title="Win" data={data.all.win} />
       <TwoLinesInfo title="Draw" data={data.all.draw} />
       <TwoLinesInfo title="Lose" data={data.all.lose} />
+      {isLoading && (
+        <St.LoadingContainer>
+          <Loading small />
+        </St.LoadingContainer>
+      )}
     </St.InfoRow>
   </St.Container>
 );

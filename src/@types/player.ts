@@ -1,4 +1,5 @@
 import {PLAYER_ACTIONS} from '../store/actions/types';
+import {Trophy} from './thophy';
 
 export interface Player {
   id: number;
@@ -7,6 +8,7 @@ export interface Player {
   number: number;
   position: string;
   photo: string;
+  trophies?: Trophy[];
 }
 
 export interface PlayersResponse {
@@ -15,6 +17,7 @@ export interface PlayersResponse {
 
 export interface PlayerState {
   players: Player[];
+  current?: Player;
 }
 
 type Keys = keyof typeof PLAYER_ACTIONS;
