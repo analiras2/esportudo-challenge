@@ -1,18 +1,18 @@
 import {AxiosError} from 'axios';
 import {useEffect, useState} from 'react';
-import {PlayersResponse} from '../@types/player';
 import {useStore} from '../store/context';
-import LEAGUE_MOCK from './leagues.mock.json';
-import PLAYERS_MOCK from './players.mock.json';
-import STANDINGS_MOCK from './standings.mock.json';
-import TEAMS_MOCK from './teams.mock.json';
-import TROPHIES_MOCK from './trophies.mock.json';
+import {getLeagues} from './league';
+import {getPlayers} from './player';
+import {getStandings} from './standings';
+import {getTeam} from './team';
+import {getTrophies} from './trophy';
 
 export enum FetchTypes {
   GET_LEAGUES,
   GET_STANDINGS,
   GET_PLAYERS,
   GET_TEAM,
+  GET_TROPHIES,
 }
 
 interface Error {
@@ -25,13 +25,20 @@ const useFetch = (type: FetchTypes, payload?: any): [boolean, Error] => {
   const [isLoading, setLoading] = useState(false);
   const [errorData, setErrorData] = useState<Error>({error: false});
 
-  const {setLeagues, setCurrent, setTeam, setPlayers} = useStore();
+  const {
+    setLeagues,
+    setCurrent,
+    setTeam,
+    setPlayers,
+    setCurrentPlayer,
+    playersState,
+  } = useStore();
 
   const handleLeagues = async () => {
     try {
-      // const {data} = await getLeagues();
+      const {data} = await getLeagues();
 
-      setLeagues(LEAGUE_MOCK.response);
+      setLeagues(data.response);
     } catch (error) {
       console.log('ERROR - getLeagues', error);
       const mError = error as AxiosError;
@@ -45,9 +52,9 @@ const useFetch = (type: FetchTypes, payload?: any): [boolean, Error] => {
 
   const handleStandings = async (season: string, league: string) => {
     try {
-      // const {data} = await getStandings(season, league);
+      const {data} = await getStandings(season, league);
 
-      setCurrent(STANDINGS_MOCK.response[0].league);
+      setCurrent(data.response[0].league);
     } catch (error) {
       console.log('ERROR - getStandings', error);
       const mError = error as AxiosError;
@@ -62,9 +69,9 @@ const useFetch = (type: FetchTypes, payload?: any): [boolean, Error] => {
 
   const handleTeam = async (teamId: string) => {
     try {
-      // const {data} = await getTeam(teamId);
+      const {data} = await getTeam(teamId);
 
-      setTeam(TEAMS_MOCK.response[0].team);
+      setTeam(data.response[0].team);
     } catch (error) {
       console.log('ERROR - getTeam', error);
       const mError = error as AxiosError;
@@ -79,9 +86,30 @@ const useFetch = (type: FetchTypes, payload?: any): [boolean, Error] => {
 
   const handlePlayers = async (teamId: string) => {
     try {
-      // const {data} = await getPlayers(teamId);
+      const {data} = await getPlayers(teamId);
 
-      setPlayers(PLAYERS_MOCK.response[0].players);
+      setPlayers(data.response[0].players);
+    } catch (error) {
+      console.log('ERROR - getPlayers', error);
+      const mError = error as AxiosError;
+
+      setErrorData({
+        error: true,
+        code: mError.code,
+        message: mError.message,
+      });
+    }
+  };
+
+  const handleTrophies = async (playerId: string) => {
+    try {
+      const {data} = await getTrophies(playerId);
+
+      const player = playersState.current;
+      if (player) {
+        player.trophies = data.response;
+        setCurrentPlayer(player);
+      }
     } catch (error) {
       console.log('ERROR - getPlayers', error);
       const mError = error as AxiosError;
@@ -116,11 +144,22 @@ const useFetch = (type: FetchTypes, payload?: any): [boolean, Error] => {
             await handlePlayers(payload?.teamId);
           }
           break;
+        case FetchTypes.GET_TROPHIES:
+          if (payload?.playerId) {
+            await handleTrophies(payload?.playerId);
+          }
+          break;
       }
       setLoading(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type, payload?.season, payload?.league, payload?.teamId]);
+  }, [
+    type,
+    payload?.season,
+    payload?.league,
+    payload?.teamId,
+    payload?.playerId,
+  ]);
 
   return [isLoading, errorData];
 };

@@ -47,6 +47,7 @@ const StandingsScreen = ({
   const [currentSeason, setCurrentSeason] = useState<Season>(
     leagues[0].seasons[0],
   );
+  const [currentLoadingIndex, setCurrentLoadingIndex] = useState(0);
 
   const [currentTeam, setCurrentTeam] = useState<number | null>(null);
 
@@ -66,7 +67,6 @@ const StandingsScreen = ({
     <BaseContainer
       title={league.name}
       onBackPress={navigation.goBack}
-      paddingVertical={false}
       modalVisible={modalVisible && !teamIsLoading}
       setModalVisible={setModalVisible}
       modalChildren={
@@ -91,7 +91,6 @@ const StandingsScreen = ({
                 dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
                 onSelect={index => {
                   setCurrentSeason(leagues[0].seasons[Number(index)]);
-                  // TODO request
                 }}
               />
               <Icon name="keyboard-arrow-down" size={20} color={colors.ICON} />
@@ -110,15 +109,18 @@ const StandingsScreen = ({
           </St.SeasonsInfo>
           <FlatList
             data={current?.standings[0]}
-            keyExtractor={item => item.team.id.toString()}
+            keyExtractor={item => item?.team?.id.toString()}
             ListEmptyComponent={() => (
               <Typography>Nenhum dado encontrado</Typography>
             )}
-            renderItem={({item}) => (
+            renderItem={({item, index}) => (
               <StandingsListItem
+                allDisabled={teamIsLoading}
+                isLoading={currentLoadingIndex === index && teamIsLoading}
                 data={item}
                 onPress={() => {
-                  setCurrentTeam(item.team.id);
+                  setCurrentLoadingIndex(index);
+                  setCurrentTeam(item?.team?.id);
                   setModalVisible(true);
                 }}
               />

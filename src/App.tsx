@@ -10,6 +10,7 @@ import StandingsScreen from './screens/standings';
 import {RootStackParamList, Routes} from './@types/routes';
 import PlayersScreen from './screens/player';
 import StoreProvider from './store/context';
+import TrophiesScreen from './screens/trophy';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,6 +25,7 @@ function App() {
             component={StandingsScreen}
           />
           <RootStack.Screen name={Routes.Players} component={PlayersScreen} />
+          <RootStack.Screen name={Routes.Trophies} component={TrophiesScreen} />
         </RootStack.Navigator>
       </NavigationContainer>
     </StoreProvider>

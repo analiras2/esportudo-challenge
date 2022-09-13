@@ -6,13 +6,13 @@ import {useStore} from '../../store/context';
 import * as St from './styles';
 
 interface Props {
-  playerIndex: number;
   onPress: () => void;
 }
 
-const PlayerModalChildren: React.FC<Props> = ({playerIndex, onPress}) => {
-  const {playersState} = useStore();
-  const player = playersState.players[playerIndex];
+const PlayerModalChildren: React.FC<Props> = ({onPress}) => {
+  const {
+    playersState: {current},
+  } = useStore();
 
   return (
     <St.PlayerContainer>
@@ -23,13 +23,17 @@ const PlayerModalChildren: React.FC<Props> = ({playerIndex, onPress}) => {
         color={colors.PLAYER_TROPHY}
         onPress={onPress}
       />
-      <St.Img source={{uri: player.photo}} resizeMode="contain" />
-      <St.Name size={20} fontWeight="500">
-        {player.name}
-      </St.Name>
-      <TwoLinesInfo title="Age" data={player.age} />
-      <TwoLinesInfo title="Number" data={player.number} />
-      <TwoLinesInfo title="Position" data={player.position} />
+      {current && (
+        <>
+          <St.Img source={{uri: current.photo}} resizeMode="contain" />
+          <St.Name size={20} fontWeight="500">
+            {current.name}
+          </St.Name>
+          <TwoLinesInfo title="Age" data={current.age} />
+          <TwoLinesInfo title="Number" data={current.number} />
+          <TwoLinesInfo title="Position" data={current.position} />
+        </>
+      )}
     </St.PlayerContainer>
   );
 };

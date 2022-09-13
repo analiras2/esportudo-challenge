@@ -5,8 +5,8 @@ const api = axios.create({
   baseURL: 'https://api-football-v1.p.rapidapi.com/v3',
   timeout: 30000,
   headers: {
-    'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY as string,
-    'X-RapidAPI-Host': process.env.REACT_APP_RAPIDAPI_API_HOST as string,
+    'X-RapidAPI-Key': 'KEYS',
+    'X-RapidAPI-Host': 'KEYS',
   },
 });
 

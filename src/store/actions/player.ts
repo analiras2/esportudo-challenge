@@ -7,3 +7,10 @@ export const setPlayers = (data: Player[]) => {
     payload: data,
   };
 };
+
+export const setCurrent = (data: Player) => {
+  return {
+    type: PLAYER_ACTIONS.SET_CURRENT_PLAYER,
+    payload: data,
+  };
+};

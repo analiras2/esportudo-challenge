@@ -9,4 +9,5 @@ export const TEAM_ACTIONS = {
 
 export const PLAYER_ACTIONS = {
   SET_PLAYER: 'SET_PLAYER',
+  SET_CURRENT_PLAYER: 'SET_CURRENT_PLAYER',
 };

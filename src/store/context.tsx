@@ -17,6 +17,7 @@ type StoreProps = {
   setTeam: (data: Team) => void;
   playersState: PlayerState;
   setPlayers: (data: Player[]) => void;
+  setCurrentPlayer: (data: Player) => void;
 };
 
 type StoreProviderProps = {
@@ -37,8 +38,9 @@ const StoreContext = createContext<StoreProps>({
     },
   },
   setTeam: () => {},
-  playersState: {players: []},
+  playersState: {players: [], current: undefined},
   setPlayers: () => {},
+  setCurrentPlayer: () => {},
 });
 
 const StoreProvider = ({children}: StoreProviderProps): JSX.Element => {
@@ -73,6 +75,10 @@ const StoreProvider = ({children}: StoreProviderProps): JSX.Element => {
     dispatchPlayerReducer(PLAYER_ACTIONS.setPlayers(data));
   };
 
+  const handleSetCurrentPlayer = (data: Player) => {
+    dispatchPlayerReducer(PLAYER_ACTIONS.setCurrent(data));
+  };
+
   return (
     <StoreContext.Provider
       value={{
@@ -83,6 +89,7 @@ const StoreProvider = ({children}: StoreProviderProps): JSX.Element => {
         setTeam: (data: Team) => handleSetTeam(data),
         playersState: statePlayerReducer,
         setPlayers: (data: Player[]) => handleSetPlayer(data),
+        setCurrentPlayer: (data: Player) => handleSetCurrentPlayer(data),
       }}>
       {children}
     </StoreContext.Provider>

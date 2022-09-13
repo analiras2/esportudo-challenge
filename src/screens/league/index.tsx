@@ -10,7 +10,7 @@ const LeagueScreen = ({navigation}: RootStackScreenProps<Routes.Leagues>) => {
   const [isLoading, errorData] = useFetch(FetchTypes.GET_LEAGUES);
 
   return (
-    <BaseContainer title="Leagues" paddingVertical={false}>
+    <BaseContainer title="Leagues">
       {isLoading ? (
         <Loading />
       ) : (
