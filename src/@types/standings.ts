@@ -1,7 +1,7 @@
-import {League} from './league';
+import {LeagueStandings} from './league';
 import {Team} from './team';
 
-export interface Standings extends League {
+export interface Standings {
   rank: number;
   team: Team;
   points: number;
@@ -11,13 +11,6 @@ export interface Standings extends League {
     draw: number;
     lose: number;
   };
-}
-
-export interface LeagueStandings extends League {
-  country: string;
-  flag: string;
-  season: number;
-  standings: Standings[][];
 }
 
 export interface StandingsResponse {

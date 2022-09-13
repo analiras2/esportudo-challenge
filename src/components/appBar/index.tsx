@@ -33,7 +33,7 @@ const AppBar: React.FC<Props> = ({
         {children ? (
           {children}
         ) : (
-          <Typography color={colors.TEXT_LIGHT} size={24} fontWeight="400">
+          <Typography color={colors.TEXT_LIGHT} size={20} fontWeight="500">
             {title}
           </Typography>
         )}

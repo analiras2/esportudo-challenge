@@ -10,7 +10,7 @@ export enum Routes {
 
 export type RootStackParamList = {
   Leagues: undefined;
-  Standings: undefined;
+  Standings: {league: {id: number; name: string}};
   Teams: undefined;
   Players: undefined;
   Trophies: undefined;
