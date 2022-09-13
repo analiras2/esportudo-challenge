@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
-import {PlayersResponse} from '../../@types/player';
 import {RootStackScreenProps, Routes} from '../../@types/routes';
 import {
   BaseContainer,
@@ -10,17 +9,18 @@ import {
   Typography,
 } from '../../components';
 import {strings} from '../../res';
-import {MOCK_TYPE, useAxios} from '../../services/useAxios';
+import useFetch, {FetchTypes} from '../../services/useFetch';
+import {useStore} from '../../store/context';
 
 const PlayersScreen = ({navigation}: RootStackScreenProps<Routes.Players>) => {
-  const {response, loading, error} = useAxios<PlayersResponse[]>({
-    method: 'GET',
-    url: '/leagues',
-    params: {type: 'league'},
-    mockType: MOCK_TYPE.PLAYERS,
+  const {teamState, playersState} = useStore();
+
+  const [isLoading, errorData] = useFetch(FetchTypes.GET_PLAYERS, {
+    teamId: teamState.team.id,
   });
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [currentPlayer, setCurrentPlayer] = useState(0);
 
   return (
     <BaseContainer
@@ -30,6 +30,7 @@ const PlayersScreen = ({navigation}: RootStackScreenProps<Routes.Players>) => {
       setModalVisible={setModalVisible}
       modalChildren={
         <PlayerModalChildren
+          playerIndex={currentPlayer}
           onPress={() => {
             setModalVisible(!modalVisible);
             // navigation.navigate(Routes.Trophies);
@@ -39,22 +40,28 @@ const PlayersScreen = ({navigation}: RootStackScreenProps<Routes.Players>) => {
       <Typography fontWeight="500" size={20}>
         {strings.player.title}
       </Typography>
-      <Loading isLoading={loading}>
-        {response && (
-          <FlatList
-            data={response[0].players}
-            contentContainerStyle={{marginTop: 20}}
-            numColumns={2}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => (
-              <PlayerListItem
-                data={item}
-                onPress={() => setModalVisible(true)}
-              />
-            )}
-          />
-        )}
-      </Loading>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={playersState.players}
+          contentContainerStyle={{marginTop: 20}}
+          numColumns={2}
+          keyExtractor={item => item.id.toString()}
+          ListEmptyComponent={() => (
+            <Typography>Nenhum dado encontrado</Typography>
+          )}
+          renderItem={({item, index}) => (
+            <PlayerListItem
+              data={item}
+              onPress={() => {
+                setCurrentPlayer(index);
+                setModalVisible(true);
+              }}
+            />
+          )}
+        />
+      )}
     </BaseContainer>
   );
 };

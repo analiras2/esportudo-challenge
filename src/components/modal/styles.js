@@ -17,10 +17,12 @@ export const PlayerContainer = styled.View`
   align-items: center;
 `;
 
-export const Logo = styled.Image`
+export const Img = styled.Image`
   height: ${100}px;
   width: ${100}px;
-  margin-bottom: ${moderateScale(8)}px;
+  margin: ${moderateScale(16)}px;
+  align-self: center;
+  border-radius: ${moderateScale(50)}px;
 `;
 
 export const Name = styled(Typography)`

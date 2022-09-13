@@ -1,4 +1,4 @@
-import {Team} from './team';
+import {PLAYER_ACTIONS} from '../store/actions/types';
 
 export interface Player {
   id: number;
@@ -10,6 +10,17 @@ export interface Player {
 }
 
 export interface PlayersResponse {
-  team: Team;
   players: Player[];
 }
+
+export interface PlayerState {
+  players: Player[];
+}
+
+type Keys = keyof typeof PLAYER_ACTIONS;
+type Values = typeof PLAYER_ACTIONS[Keys];
+
+export type PlayerAction = {
+  type: Values;
+  payload: any;
+};

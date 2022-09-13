@@ -9,18 +9,24 @@ import LeagueScreen from './screens/league';
 import StandingsScreen from './screens/standings';
 import {RootStackParamList, Routes} from './@types/routes';
 import PlayersScreen from './screens/player';
+import StoreProvider from './store/context';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
-    <NavigationContainer>
-      <RootStack.Navigator screenOptions={{headerShown: false}}>
-        <RootStack.Screen name={Routes.Leagues} component={LeagueScreen} />
-        <RootStack.Screen name={Routes.Standings} component={StandingsScreen} />
-        <RootStack.Screen name={Routes.Players} component={PlayersScreen} />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <StoreProvider>
+      <NavigationContainer>
+        <RootStack.Navigator screenOptions={{headerShown: false}}>
+          <RootStack.Screen name={Routes.Leagues} component={LeagueScreen} />
+          <RootStack.Screen
+            name={Routes.Standings}
+            component={StandingsScreen}
+          />
+          <RootStack.Screen name={Routes.Players} component={PlayersScreen} />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </StoreProvider>
   );
 }
 

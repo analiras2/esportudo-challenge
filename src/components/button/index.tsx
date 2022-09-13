@@ -17,7 +17,7 @@ const Button: React.FC<Props> = ({label, onPress}): JSX.Element => (
   <St.Container onPress={onPress}>
     <Typography
       size={10}
-      color={colors.LINK}
+      color={colors.ACCENT}
       fontWeight="500"
       onPress={onPress}>
       {label}
